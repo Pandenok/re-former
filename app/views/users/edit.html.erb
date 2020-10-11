@@ -1,14 +1,23 @@
-<%= form_with model: @user do |f| %>
+<%= form_with model: @user, local: true do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being edited:</h2>
+    </div>
+  <% end %>
+
   <%= f.label :email, 'Email: '%>
   <%= f.email_field :email, placeholder: "example@example.com" %>
+  <%= @user.errors[:email].first if @user.errors[:email].any? %>
   <br/><br/>
   
   <%= f.label :username, 'Username: '%>
   <%= f.text_field :username, placeholder: "Your user name here" %>
+  <%= @user.errors[:username].first if @user.errors[:username].any? %>
   <br/><br/>
   
   <%= f.label :password, 'Password: '%>
   <%= f.password_field :password %>
+  <%= @user.errors[:password].first if @user.errors[:password].any? %>
   <br/><br/>
 
   <%= f.submit %>
